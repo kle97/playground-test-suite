@@ -23,7 +23,11 @@ public abstract class BaseTP extends BaseTest {
     @AfterClass
     public void afterBaseTPClass() {
         Reporter.flush();
-        softly().assertAll();
+        try {
+            softly().assertAll();
+        } catch (Throwable ignored) {
+            throw new RuntimeException("There are soft assertion failures!");
+        }
     }
 
     protected void runTests(Object... tests) {

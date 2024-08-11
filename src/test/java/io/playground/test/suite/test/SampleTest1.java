@@ -5,7 +5,6 @@ import io.playground.test.suite.common.Reporter;
 import io.playground.test.suite.context.TestContext;
 import io.playground.test.suite.page.EntityPage;
 import io.playground.test.suite.page.Pages;
-import io.playground.test.suite.util.SleepUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.OutputType;

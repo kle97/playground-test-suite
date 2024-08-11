@@ -1,8 +1,6 @@
 package io.playground.test.suite.tp;
 
 import io.playground.test.suite.common.BaseTP;
-import io.playground.test.suite.common.Reporter;
-import io.playground.test.suite.common.RetryAnalyzer;
 import io.playground.test.suite.common.TestRunnerOption;
 import io.playground.test.suite.context.TestContext;
 import io.playground.test.suite.test.SampleTest1;
@@ -21,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class SampleTP extends BaseTP {
+public class SampleIT extends BaseTP {
     
     private WebDriver driver1;
     private WebDriver driver2;
