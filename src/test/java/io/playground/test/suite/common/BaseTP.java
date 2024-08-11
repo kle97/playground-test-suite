@@ -9,6 +9,7 @@ import org.testng.xml.XmlSuite;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -97,9 +98,9 @@ public abstract class BaseTP extends BaseTest {
                     }
                 }
                 methods = filteredMethods;
+                methods.sort(Comparator.comparing(m -> m.getInstance().toString()));
             }
-
-//            methods.sort(Comparator.comparing(m -> m.getInstance().toString()));
+            
             return methods;
         }
 

@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.xml.XmlSuite;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -29,30 +28,28 @@ public class TestRunnerOption {
     private int threadCount = Thread.activeCount() > 2 ? Thread.activeCount() - 2 : Thread.activeCount();
     
     public XmlSuite.ParallelMode getParallelMode() {
-        XmlSuite.ParallelMode systemMode = XmlSuite.ParallelMode.getValidParallel(System.getProperty("tests.parallel", "none"));
-        if (!systemMode.equals(XmlSuite.ParallelMode.NONE)) {
-            return systemMode;
+        String systemProperty = System.getProperty("tests.parallel");
+        if (systemProperty != null) {
+            return XmlSuite.ParallelMode.getValidParallel(systemProperty);
         } else {
             return parallelMode;
         }
     }
 
     public boolean isDataProviderParallel() {
-        boolean systemDataParallel = Boolean.parseBoolean(System.getProperty("tests.dataParallel"));
-        if (systemDataParallel) {
-            return true;
+        String systemProperty = System.getProperty("tests.dataParallel");
+        if (systemProperty != null) {
+            return Boolean.parseBoolean(systemProperty);
         } else {
             return dataProviderParallel;
         }
     }
     
     public List<String> getTestFilter() {
-        String[] systemFilterArray = System.getProperty("tests", "").split(",");
-        List<String> systemTestFilter = systemFilterArray.length > 0 && !systemFilterArray[0].isEmpty() 
-                ? Arrays.asList(systemFilterArray) 
-                : List.of();
-        if (!systemTestFilter.isEmpty()) {
-            return List.copyOf(systemTestFilter);
+        String systemProperty = System.getProperty("tests");
+        if (systemProperty != null) {
+            String[] systemFilterArray = System.getProperty("tests").split(",");
+            return List.of(systemFilterArray);
         } else {
             return List.copyOf(testFilter);
         }
