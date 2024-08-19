@@ -62,7 +62,7 @@ public abstract class BaseTP extends BaseTest {
     }
 
     private record TestListener(ITestResult testResult, TestRunnerOption option) 
-            implements ITestListener, IMethodInterceptor, IAnnotationTransformer {
+            implements ITestListener, IMethodInterceptor, IAnnotationTransformer, IConfigurationListener {
         @Override
         public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
             if (testResult != null && testResult.getStatus() != ITestResult.FAILURE) {
@@ -78,9 +78,14 @@ public abstract class BaseTP extends BaseTest {
         public void onTestFailure(ITestResult result) {
             if (result.getThrowable() != null) {
                 log.error(result.getThrowable().getMessage(), result.getThrowable());
-                testResult.setThrowable(new NoStackTraceException("There was an exception earlier!"));
+//                testResult.setThrowable(new NoStackTraceException("There was an exception earlier!"));
                 testResult.setStatus(ITestResult.FAILURE);
             }
+        }
+
+        @Override
+        public void onConfigurationFailure(ITestResult result) {
+            onTestFailure(result);
         }
 
         @Override
